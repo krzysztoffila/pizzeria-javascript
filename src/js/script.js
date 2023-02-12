@@ -1,6 +1,5 @@
 /* global Handlebars, utils, dataSource */
 // eslint-enable-line no-unused-vars
-
 {
   'use strict';
 
@@ -59,9 +58,11 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
+      thisProduct.setValue();
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     }
     renderInMenu() {
@@ -170,8 +171,26 @@
   class AmountWidget {
     constructor(element) {
       const thisWidget = this;
+      thisWidget.getElements(element);
       console.log('AmountWidget:', thisWidget);
       console.log('constructor element: ', element);
+    }
+    getElements(element) {
+      const thisWidget = this;
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+    setValue(value) {
+      const thisWidget = this;
+      const newValue = parseInt(value);
+      /* validation */
+      if (thisWidget.value !== newValue && !isNaN(newValue)) {
+        thisWidget.value = newValue;
+      }
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
     }
   }
   const app = {
