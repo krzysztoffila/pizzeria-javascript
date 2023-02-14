@@ -96,8 +96,12 @@
       const menuContainer = document.querySelector(select.containerOf.menu);
       menuContainer.appendChild(thisProduct.element);
     }
-    getElements() {
+    getElements(element) {
       const thisProduct = this;
+      /* TODO: create object for dom elements */
+      thisProduct.dom = {};
+      thisProduct.dom.wrapper = element;
+      /* END */
       thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
@@ -239,10 +243,16 @@
       const thisApp = this;
       thisApp.data = dataSource;
     },
+    initCart: function () {
+      const thisApp = this;
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
+    },
     init: function () {
       const thisApp = this;
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
     },
   };
   app.init();
