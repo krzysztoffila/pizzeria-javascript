@@ -134,6 +134,7 @@
       }
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
+        thisProduct.addToCart();
         thisProduct.processOrder();
       });
     }
@@ -177,6 +178,17 @@
     addToCart() {
       const thisProduct = this;
       app.cart.add(thisProduct);
+    }
+    prepareCartProduct() {
+      const thisProduct = this;
+      const productSummary = {};
+      productSummary.id = thisProduct.id;
+      productSummary.name = thisProduct.data.name;
+      productSummary.amount = thisProduct.amountWidget.value;
+      productSummary.priceSingle = thisProduct.priceSingle;
+      productSummary.price = thisProduct.amout * thisProduct.priceSingle;
+      productSummary.parmas = thisProduct.prepareCartProductParams();
+      return productSummary;
     }
   }
   class AmountWidget {
