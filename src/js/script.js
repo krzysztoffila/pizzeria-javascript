@@ -63,6 +63,11 @@
   };
 
   const settings = {
+    db: {
+      url: '//localhost:3131',
+      products: 'products',
+      orders: 'orders',
+    },
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
@@ -428,8 +433,19 @@
     },
     initData: function () {
       const thisApp = this;
+      const url = settings.db.url + '/' + settings.db.products;
+      fetch(url).then(function (rawRespone) {
+        return rawRespone.json();
+      }).then(function (parsedResponse) {
+        console.log('parsedResponse', parsedResponse);
+        /* save parsedResponse as thisApp.data.products */
 
-      thisApp.data = dataSource;
+        /* excute initMenu method */
+      });
+
+      console.log('thisApp.data', JSON.stringify(thisApp.data));
+
+      thisApp.data = {};
     },
     init: function () {
       const thisApp = this;
