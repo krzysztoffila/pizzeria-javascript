@@ -135,7 +135,6 @@
     }
     initOrderForm() {
       const thisProduct = this;
-      //console.log(thisProduct.initOrderForm)
       thisProduct.form.addEventListener('submit', function (event) {
         event.preventDefault();
         thisProduct.processOrder();
@@ -312,6 +311,8 @@
       thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
       thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
+      console.log(thisCart.dom.form);
 
     }
     initActions() {
@@ -325,7 +326,16 @@
       thisCart.dom.productList.addEventListener('remove', function () {
         thisCart.remove(event.detail.cartProduct);
       });
+      thisCart.dom.form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        thisCart.sendOrder();
+      });
     }
+    // sendOrder() {
+    //   const thisCart = this;
+    //   const url = settings.db.url + '/' + settings.db.orders;
+    //   console.log(thisCart);
+    // }
     add(menuProduct) {
       const thisCart = this;
       /* generate HTML based on template */
@@ -426,7 +436,6 @@
   const app = {
     initMenu: function () {
       const thisApp = this;
-      //console.log('thisApp.data:', thisApp.data);
       for (let productData in thisApp.data.products) {
         new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
       }
@@ -439,21 +448,18 @@
           return rawRespone.json();
         })
         .then(function (parsedResponse) {
-          console.log('parsedResponse', parsedResponse);
+          // console.log('parsedResponse', parsedResponse);
           /* save parsedResponse as thisApp.data.products */
           thisApp.data.products = parsedResponse;
           /* execute initMenu method */
           thisApp.initMenu();
         });
-
-      console.log('thisApp.data', JSON.stringify(thisApp.data));
-
+      // console.log('thisApp.data', JSON.stringify(thisApp.data));
       thisApp.data = {};
     },
     init: function () {
       const thisApp = this;
       thisApp.initData();
-      // thisApp.initMenu();
       thisApp.initCart();
     },
     initCart: function () {
