@@ -81,9 +81,9 @@ class Cart {
   }
   remove(removedProduct) {
     const thisCart = this;
-    const indexOfremovedProduct = thisCart.products.indexOf(removedProduct);
+    const indexOfRemovedProduct = thisCart.products.indexOf(removedProduct);
     removedProduct.dom.wrapper.remove();
-    thisCart.products.splice(indexOfremovedProduct, 1);
+    thisCart.products.splice(indexOfRemovedProduct, 1);
     thisCart.update();
 
   }
@@ -112,6 +112,7 @@ class Cart {
     };
 
     fetch(url, options);
+    console.log(url);
 
 
   }
