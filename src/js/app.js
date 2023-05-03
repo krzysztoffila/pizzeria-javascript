@@ -6,6 +6,8 @@ import {
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+
+
 const app = {
   initPages: function () {
     const thisApp = this;
